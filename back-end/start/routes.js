@@ -18,3 +18,7 @@ const Route = use('Route')
 
 Route.post('/signup', 'AuthController.signup')
 Route.post('/signin', 'AuthController.signin')
+
+Route.group(() => {
+  Route.resource('customers', 'CustomerController').apiOnly()
+}).middleware(['auth'])
