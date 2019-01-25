@@ -20,5 +20,6 @@ Route.post('/signup', 'AuthController.signup')
 Route.post('/signin', 'AuthController.signin')
 
 Route.group(() => {
-  Route.resource('customers', 'CustomerController').apiOnly()
+  Route.resource('customers', 'CustomerController').apiOnly().except(['destroy'])
+  Route.resource('evaluations', 'EvaluationController').apiOnly().except(['destroy'])
 }).middleware(['auth'])
