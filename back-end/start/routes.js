@@ -21,4 +21,4 @@ Route.post('/signin', 'AuthController.signin')
 
 Route.group(() => {
   Route.resource('customers', 'CustomerController').apiOnly()
-}).middleware(['auth'])
+})//.middleware(['auth'])
