@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './pages/home/index';
-import Customers from './pages/customer/index';
+import React from 'react';
+import Routes from './routes';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/customers' component={Customers} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { purple300, deepPurple600 } from 'material-ui/styles/colors';
+
+const theme = getMuiTheme({
+  palette: {
+    primary1Color: purple300,
+    accent1Color: deepPurple600,
+  },
+});
+
+const App = () => (
+  <MuiThemeProvider muiTheme={theme}>
+    <Routes />
+  </MuiThemeProvider>
+);
 
 export default App;
