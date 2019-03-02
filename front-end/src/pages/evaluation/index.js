@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
 
+import AppBar from '../../component/AppBar';
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
 class Customers extends Component {
   state = {
     evaluations: [],
@@ -18,8 +23,13 @@ class Customers extends Component {
   render() {
     return (
       <div>
-        <h1>Evaluations</h1>
-        <table>
+        <AppBar />
+        <Grid>
+          <Typography style={{ paddingTop: 20, paddingLeft: 10 }} variant='h4'>
+            Evaluations
+          </Typography>
+        </Grid>
+        {/* <table>
           <thead>
             <tr>
               <th>Name</th>
@@ -34,7 +44,7 @@ class Customers extends Component {
               </tr>
             ))}
           </tbody>
-        </table>
+            </table>*/}
       </div>
     );
   }
