@@ -1,6 +1,7 @@
-'use strict'
+'use strict';
 
-const Evaluation = use('App/Models/Evaluation')
+const Evaluation = use('App/Models/Evaluation');
+const Customer = use('App/Models/Customer');
 
 class EvaluationController {
   /**
@@ -8,9 +9,11 @@ class EvaluationController {
    * GET evaluations
    */
   async index() {
-    const evaluations = Evaluation.all()
+    const evaluations = Customer.query()
+      .with('evaluations')
+      .fetch();
 
-    return evaluations
+    return evaluations;
   }
 
   /**
@@ -18,16 +21,16 @@ class EvaluationController {
    * POST evaluations
    */
   async store({ request }) {
-    const data = request.only(['height', 'weight', 'customer_id'])
+    const data = request.only(['height', 'weight', 'customer_id']);
 
-    const height = data.height
-    const weight = data.weight
+    const height = data.height;
+    const weight = data.weight;
 
-    const bmi = weight / (height * height)
+    const bmi = weight / (height * height);
 
-    const evaluation = await Evaluation.create({ ...data, bmi: bmi })
+    const evaluation = await Evaluation.create({ ...data, bmi: bmi });
 
-    return evaluation
+    return evaluation;
   }
 
   /**
@@ -35,9 +38,9 @@ class EvaluationController {
    * GET evaluations/:id
    */
   async show({ params }) {
-    const evaluation = await Evaluation.findOrFail(params.id)
+    const evaluation = await Evaluation.findOrFail(params.id);
 
-    return evaluation
+    return evaluation;
   }
 
   /**
@@ -45,9 +48,9 @@ class EvaluationController {
    * PUT or PATCH evaluations/:id
    */
   async update({ params, request, response }) {
-    const evaluation = await Evaluation.findOrFail(params.id)
-    const data = request.all()
+    const evaluation = await Evaluation.findOrFail(params.id);
+    const data = request.all();
   }
 }
 
-module.exports = EvaluationController
+module.exports = EvaluationController;
