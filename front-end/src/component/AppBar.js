@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { isAuthenticated } from '../services/auth';
+import AvatarToggle from './AvatarToggle';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,8 +11,7 @@ import Drawer from 'material-ui/Drawer';
 import Divider from '@material-ui/core/Divider';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
-import { blue300, blue200 } from 'material-ui/styles/colors';
+import { blue300 } from 'material-ui/styles/colors';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -33,12 +33,8 @@ const styles = {
     padding: 10,
     marginLeft: 10,
   },
-  button: {
+  left: {
     marginLeft: 'auto',
-  },
-  avatar: {
-    marginLeft: 'auto',
-    backgroundColor: blue200,
   },
 };
 
@@ -66,7 +62,11 @@ class SimpleAppBar extends Component {
               <Typography className={classes.appName} variant='h6'>
                 Meu App
               </Typography>
-              <Divider variant='middle' />
+              <Divider />
+              <MenuItem style={{ background: '#eee' }} component={Link} to='/'>
+                Painel
+              </MenuItem>
+              <Divider />
               <MenuItem component={Link} to='/customers'>
                 Clientes
               </MenuItem>
@@ -90,12 +90,14 @@ class SimpleAppBar extends Component {
               </Typography>
             )}
             {isAuthenticated() ? (
-              <Avatar className={classes.avatar}>H</Avatar>
+              <div className={classes.left}>
+                <AvatarToggle />
+              </div>
             ) : (
               <Button
                 component={Link}
                 to='/signin'
-                className={classes.button}
+                className={classes.left}
                 color='inherit'
               >
                 Login
