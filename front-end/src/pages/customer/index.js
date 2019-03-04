@@ -4,24 +4,16 @@ import api from '../../services/api';
 import AppBar from '../../component/AppBar';
 
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+import {
+  Grid,
+  Typography,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@material-ui/core';
 
 const styles = {
   root: {
@@ -68,15 +60,15 @@ class Customers extends Component {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <CustomTableCell>Nome</CustomTableCell>
-                  <CustomTableCell>Nascimeto</CustomTableCell>
+                  <TableCell>Nome</TableCell>
+                  <TableCell>Nascimeto</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {customers.map(customer => (
                   <TableRow key={customer.id}>
-                    <CustomTableCell>{customer.name}</CustomTableCell>
-                    <CustomTableCell>{customer.born}</CustomTableCell>
+                    <TableCell>{customer.name}</TableCell>
+                    <TableCell>{customer.born}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

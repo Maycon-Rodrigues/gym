@@ -3,8 +3,31 @@ import api from '../../services/api';
 
 import AppBar from '../../component/AppBar';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Grid,
+  Typography,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@material-ui/core';
+
+const styles = {
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
+    width: 800,
+  },
+  table: {
+    borderRadius: 2,
+    paddingTop: 2,
+  },
+};
 
 class Customers extends Component {
   state = {
@@ -21,6 +44,9 @@ class Customers extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+    const { evaluations } = this.state;
+
     return (
       <div>
         <AppBar />
@@ -29,25 +55,33 @@ class Customers extends Component {
             Evaluations
           </Typography>
         </Grid>
-        {/* <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Nascimeto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.evaluations.map(evaluation => (
-              <tr key={evaluation.id}>
-                <td>{evaluation.name}</td>
-                <td>{evaluation.born}</td>
-              </tr>
-            ))}
-          </tbody>
-            </table>*/}
+        <Grid container direction='row' justify='center' alignItems='center'>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nome</TableCell>
+                  <TableCell>Altura</TableCell>
+                  <TableCell>Peso</TableCell>
+                  <TableCell>IMC</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {evaluations.map(evaluation => (
+                  <TableRow key={evaluation.id}>
+                    <TableCell>{evaluation.customer_id}</TableCell>
+                    <TableCell>{evaluation.height}</TableCell>
+                    <TableCell>{evaluation.weight}</TableCell>
+                    <TableCell>{evaluation.bmi}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Grid>
       </div>
     );
   }
 }
 
-export default Customers;
+export default withStyles(styles)(Customers);
