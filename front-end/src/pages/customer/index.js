@@ -43,6 +43,11 @@ class Customers extends Component {
     this.setState({ customers: response.data });
   };
 
+  convertBorn = dateString => {
+    const born = new Date(dateString).toLocaleDateString();
+    return born;
+  };
+
   render() {
     const { classes } = this.props;
     const { customers } = this.state;
@@ -68,7 +73,7 @@ class Customers extends Component {
                 {customers.map(customer => (
                   <TableRow key={customer.id}>
                     <TableCell>{customer.name}</TableCell>
-                    <TableCell>{customer.born}</TableCell>
+                    <TableCell>{this.convertBorn(customer.born)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
