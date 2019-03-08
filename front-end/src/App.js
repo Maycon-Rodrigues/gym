@@ -3,11 +3,11 @@ import Routes from './routes';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { purple300, deepPurple600 } from 'material-ui/styles/colors';
+import { blue300, deepPurple600 } from 'material-ui/styles/colors';
 
 const theme = getMuiTheme({
   palette: {
-    primary1Color: purple300,
+    primary1Color: blue300,
     accent1Color: deepPurple600,
   },
 });

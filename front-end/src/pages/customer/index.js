@@ -1,6 +1,34 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
 
+import AppBar from '../../component/AppBar';
+
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Grid,
+  Typography,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@material-ui/core';
+
+const styles = {
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
+    width: 800,
+  },
+  table: {
+    borderRadius: 2,
+    paddingTop: 2,
+  },
+};
+
 class Customers extends Component {
   state = {
     customers: [],
@@ -15,29 +43,46 @@ class Customers extends Component {
     this.setState({ customers: response.data });
   };
 
+  convertBorn = dateString => {
+    const born = new Date(dateString).toLocaleDateString();
+    return born;
+  };
+
   render() {
+    const { classes } = this.props;
+    const { customers } = this.state;
+
     return (
       <div>
-        <h1>Customer</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Nascimeto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.customers.map(customer => (
-              <tr key={customer.id}>
-                <td>{customer.name}</td>
-                <td>{customer.born}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <AppBar />
+        <Grid container direction='row'>
+          <Typography style={{ paddingTop: 20 }} variant='h4'>
+            Customers
+          </Typography>
+        </Grid>
+        <Grid container direction='row' justify='center' alignItems='center'>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nome</TableCell>
+                  <TableCell>Nascimeto</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {customers.map(customer => (
+                  <TableRow key={customer.id}>
+                    <TableCell>{customer.name}</TableCell>
+                    <TableCell>{this.convertBorn(customer.born)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Grid>
       </div>
     );
   }
 }
 
-export default Customers;
+export default withStyles(styles)(Customers);

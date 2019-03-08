@@ -6,8 +6,9 @@ import { isAuthenticated } from './services/auth';
 import Home from './pages/home/index';
 import Login from './pages/login/index';
 import Customers from './pages/customer/index';
+import Evaluations from './pages/evaluation/index';
 
-const PrivateRaute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -25,7 +26,8 @@ const Routes = () => (
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/signin' component={Login} />
-      <Route path='/customers' component={Customers} />
+      <PrivateRoute path='/customers' component={Customers} />
+      <PrivateRoute path='/evaluations' component={Evaluations} />
       <Route path='*' component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>
