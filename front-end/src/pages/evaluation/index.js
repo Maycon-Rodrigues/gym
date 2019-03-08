@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-class Customers extends Component {
+class Evaluations extends Component {
   state = {
     evaluations: [],
   };
@@ -41,6 +41,12 @@ class Customers extends Component {
   loadEvaluations = async () => {
     const response = await api.get('evaluations');
     this.setState({ evaluations: response.data });
+    console.log(this.state.date);
+  };
+
+  calcAge = dateString => {
+    const birthday = +new Date(dateString);
+    return ~~((Date.now() - birthday) / 31557600000);
   };
 
   render() {
@@ -61,18 +67,24 @@ class Customers extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell>Nome</TableCell>
+                  <TableCell>Idade</TableCell>
                   <TableCell>Altura</TableCell>
                   <TableCell>Peso</TableCell>
                   <TableCell>IMC</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {evaluations.map(evaluation => (
-                  <TableRow key={evaluation.id}>
-                    <TableCell>{evaluation.customer_id}</TableCell>
-                    <TableCell>{evaluation.height}</TableCell>
-                    <TableCell>{evaluation.weight}</TableCell>
-                    <TableCell>{evaluation.bmi}</TableCell>
+                {evaluations.map(customer => (
+                  <TableRow key={customer.id}>
+                    <TableCell>{customer.name}</TableCell>
+                    <TableCell>{this.calcAge(customer.born)}</TableCell>
+                    {customer.evaluations.map(evaluation => (
+                      <>
+                        <TableCell>{evaluation.height}</TableCell>
+                        <TableCell>{evaluation.weight}</TableCell>
+                        <TableCell>{evaluation.bmi}</TableCell>
+                      </>
+                    ))}
                   </TableRow>
                 ))}
               </TableBody>
@@ -84,4 +96,4 @@ class Customers extends Component {
   }
 }
 
-export default withStyles(styles)(Customers);
+export default withStyles(styles)(Evaluations);
