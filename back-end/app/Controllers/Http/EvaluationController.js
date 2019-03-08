@@ -3,15 +3,22 @@
 const Evaluation = use('App/Models/Evaluation');
 const Customer = use('App/Models/Customer');
 
+const Database = use('Database');
+
 class EvaluationController {
   /**
    * Show a list of all evaluations.
    * GET evaluations
    */
   async index() {
-    const evaluations = Customer.query()
+    /* const evaluations = Customer.query()
       .with('evaluations')
-      .fetch();
+      .fetch();*/
+    const evaluations = await Database.table('customers').innerJoin(
+      'evaluations',
+      'customers.id',
+      'evaluations.customer_id'
+    );
 
     return evaluations;
   }
